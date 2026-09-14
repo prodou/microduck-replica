@@ -38,6 +38,10 @@ Microduck 官方只开源了软件（机器人"大脑"，Rust 编写），**机�
 - [`BOM.md`](./BOM.md) — 逐项选型表格，含原版规格证据、替代件参数、单价、选型理由
 - 机械结构（外壳/连杆/关节支架）未包含在本项目，原版结构从未开源，如需复刻需另行测绘/建模
 
+## 工作记录（Copilot CLI 会话）
+
+- BOM 选型/HAT 拆解/采购状态跟踪：session `66c1e73f-6e35-42da-b926-9faad19c7184`（GitHub Copilot CLI），到 [`pollen-robotics/microduck_rl`](https://github.com/pollen-robotics/microduck_rl) 训练策略部分的调研由该会话末尾发起，后续训练相关工作建议另开新会话跟踪。
+
 ## 参考来源
 
 - https://github.com/pollen-robotics/microduck — 官方软件源码（唯一的官方一手依据）
