@@ -15,11 +15,11 @@ Microduck 官方只开源了软件（机器人"大脑"，Rust 编写），**机�
 
 ## 当前状态
 
-- 预算：约 ¥2761（不含结构件/3D打印/可选头部IMU），加头部IMU约¥2841
+- 预算：约 ¥2742（不含结构件/3D打印/可选头部IMU），加头部IMU约¥2822
 - 已确认/已选定的关键部件：
   - 主控：Radxa Zero 3W（官方SKU实锤）
-  - 扩展HAT：直接照搬官方开源 `elec_RPI_Robot_HAT`
-  - 舵机：飞特 HD-1910-C001 ×15（因原版 Dynamixel XL330-M288-T 被炒到¥1200+/个而替换）
+  - 扩展HAT：直接照搬官方开源 `elec_RPI_Robot_HAT`，**分阶段populate**：Phase1(电源+TTL总线+40Pin+Qwiic，全为可手工焊封装)先做；RS485收发(HD-1910用不上)、板载BMI088 IMU(用途未查清)、音频(麦克风/编解码/功放)留到Phase2
+  - 舵机：飞特 HD-1910-C001 ×15（因原版 Dynamixel XL330-M288-T 被炒到¥1200+/个而替换），数据接口实为Molex 5264 2.5mm(非2.0mm)，与HAT的JST-EH 2.5mm同间距
   - 机身/头部IMU转接：ESP32-C3 SuperMini + GY-BNO085（自制飞特从机协议桥接，本项目风险最高的部分）
   - ToF：VL53L8CX Qwiic 模块
   - 摄像头：Radxa 官方 Camera 8M 219 (IMX219)
@@ -27,7 +27,11 @@ Microduck 官方只开源了软件（机器人"大脑"，Rust 编写），**机�
 - 仍需自行开发（不在 BOM 预算内，属于软件/固件工作量）：
   1. ESP32-C3 上实现飞特（Feetech）从机协议，伪装成总线 ID 200 的 IMU
   2. `duck-control/bus.rs` 驱动层从 Dynamixel Protocol 2.0 改写为飞特协议
-  3. HD-1910-C001 ↔ HAT 之间的 AMP2.0↔JST-EH 转接线材/走线
+  3. HD-1910-C001 ↔ HAT 之间的同间距(2.5mm)换壳转接线材
+- **HAT Phase2（先放一放，等Phase1跑通再考虑）**：
+  1. RS485总线(SIT3088E)是否真的完全用不上，需要实际组装验证后再拍板要不要补
+  2. 板载BMI088 IMU的软件角色未查清（跟总线上伪装ID200的IMU是两条独立通路），需要进一步翻`duck-control`源码或社区文档
+  3. 音频链路(MEMS麦克风+TLV320AIC3104编解码+PAM8406D功放)何时补齐，取决于是否需要duck发声/收音功能
 
 ## 目录
 
